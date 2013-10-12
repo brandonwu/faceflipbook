@@ -12,7 +12,8 @@ my_uri_encoded = 'http%3A%2F%2Fwww.wonderboltseven.com%3A5000%2Ffb-login'
 def get_oauth_token():
 	if 'code' in request.args:
 		token = process_oauth_token(request.args['code'])[13:]
-		result = fql_query(token)
+		name = graph_api_query(me, name, token)['name']
+		result = fql_query(token, name)
 		pic_urls = fetch_pic_url(result, token)
 		return str(pic_urls)
 	else:
@@ -32,10 +33,15 @@ def fb_oauth_redirect():
 	scope = 'user_photos,friends_photos'
 	return redirect_js.format(redirect_url.format(app_id, my_uri, scope))
 
-def fql_query(access_token):
+def graph_api_query(endpoint, fields, token):
+	baseurl = 'https://graph.facebook.com/{0}'.format(endpoint)
+	params = {'fields': fields, 'access_token': token}
+	return requests.get(baseurl, params=params).json()
+
+def fql_query(access_token, name):
 	baseurl = 'https://graph.facebook.com/fql'
 	query = 'SELECT pid, object_id, text, xcoord, ycoord '+\
-			'FROM photo_tag WHERE subject=me() AND text == "Brandon Wu"'
+			'FROM photo_tag WHERE subject=me() AND text == "{0}"'.format(name)
 	params = {'q': query, 'access_token': access_token}
 	return requests.get(baseurl, params=params).json()[u'data']
 
