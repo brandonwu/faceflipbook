@@ -1,6 +1,7 @@
 """Facebook connector glue stuff."""
 from flask import Flask, request
 import requests
+import hashlib
 from facegetter import faceget
 app = Flask(__name__)
 
@@ -13,11 +14,16 @@ my_uri_encoded = 'http%3A%2F%2Fwww.wonderboltseven.com%3A5000%2Ffb-login'
 def get_oauth_token():
 	if 'code' in request.args:
 		token = process_oauth_token(request.args['code'])[13:]
-		name = graph_api_query('me', 'name', token)['name']
+		graph_query = graph_api_query('me', 'name', token)
+		name, uid = graph_query['name'], graph_query['id']
 		result = fql_query(token, name)
 		pic_urls = fetch_pic_url(result, token)
-		pic = pic_urls[0]
-		faceget(pic[u'src_big'], pic[u'xcoord']/float(100), pic[u'ycoord']/float(100))
+		folder = hashlib.md5(uid).hexdigest()
+		for i in xrange(0, 3):
+			pic = pic_urls[i]
+			pic_name = folder + '/' + hashlib.md5(pic[u'src_big']).hexdigest() +\
+					   '.png'
+			faceget(pic[u'src_big'], pic[u'xcoord']/float(100), pic[u'ycoord']/float(100), 100, pic_name)
 		return str(pic_urls)
 	else:
 		return fb_oauth_redirect()
@@ -49,7 +55,7 @@ def fql_query(access_token, name):
 	return requests.get(baseurl, params=params).json()[u'data']
 
 def fetch_pic_url(tags, token, s=requests.Session()):
-	for tag in tags:
+	for tag in tags:✖
 		object_id = tag[u'object_id']
 		tag[u'src_big'] = get_pic_src(object_id, token, s)#superFQLjoin
 	return tags
