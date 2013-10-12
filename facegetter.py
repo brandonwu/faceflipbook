@@ -3,7 +3,7 @@ from PIL import Image
 import urllib, cStringIO
 import sys
 
-def faceget(url, xcenter, ycenter, width=50):
+def faceget(url, xcenter, ycenter, width=50, filename='test.png'):
     """Download photo at URL, return a square cropped image centered at XCENTER and YCENTER (percent) of size WIDTH (pixels)."""
     
     f = cStringIO.StringIO(urllib.urlopen(url).read())
@@ -20,7 +20,7 @@ def faceget(url, xcenter, ycenter, width=50):
     box = (left, top, right, bottom)
     
     cropped = img.crop(box)
-    cropped.save("test.png")
+    cropped.save(filename)
     
 
 
