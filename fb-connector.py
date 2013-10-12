@@ -3,7 +3,7 @@ from flask import Flask, request
 import requests
 import hashlib
 import os
-from facegetter import faceget
+from facegetter import faceget, get_face
 app = Flask(__name__)
 
 app_id = '599387690117256'
@@ -21,11 +21,13 @@ def get_oauth_token():
 		pic_urls = fetch_pic_url(result, token)
 		folder = 'images/' + hashlib.md5(uid).hexdigest()
 		os.makedirs(folder)
-		for i in xrange(0, len(pic_urls)):
+		#for i in xrange(0, len(pic_urls)):
+		for i in xrange(0, 10):
 			pic = pic_urls[i]
 			pic_name = folder + '/' + hashlib.md5(pic[u'src_big']).hexdigest() +\
 					   '.png'
-			faceget(pic[u'src_big'], pic[u'xcoord']/float(100), pic[u'ycoord']/float(100), 100, pic_name)
+			#get_face(pic[u'src_big'], pic[u'xcoord']/float(100), pic[u'ycoord']/float(100), 100, pic_name)
+			get_face(pic[u'src_big'], pic[u'xcoord']/float(100), pic[u'ycoord']/float(100), pic_name)
 		return str(pic_urls)
 	else:
 		return fb_oauth_redirect()
