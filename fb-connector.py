@@ -11,7 +11,7 @@ my_uri_encoded = 'http%3A%2F%2Fwww.wonderboltseven.com%3A5000%2Ffb-login'
 @app.route('/fb-login', methods=['GET', 'POST'])
 def get_oauth_token():
 	if 'code' in request.args:
-		return process_oauth_token(request.args['code'])[12:]
+		return fql_query(process_oauth_token(request.args['code'])[13:])
 	else:
 		return fb_oauth_redirect()
 
@@ -21,7 +21,6 @@ def process_oauth_token(code, s=requests.Session()):
 	url = token_url.format(app_id, my_uri_encoded, app_secret, code)
 	return s.get(url).text
 
-
 def fb_oauth_redirect():
 	"""If there is no POST with a facebook oauth token, redirect user."""
 	redirect_url = "https://www.facebook.com/dialog/oauth?client_id={0}" +\
@@ -29,9 +28,13 @@ def fb_oauth_redirect():
 	redirect_js	= '<script>top.location.href="{0}"</script>'
 	return redirect_js.format(redirect_url.format(app_id, my_uri))
 
-class Facebook():
-	def __init__(self, app_id, app_secret, app_something):
-		return None
+def fql_query(access_token):
+	baseurl = 'https://graph.facebook.com/fql'
+	query = 'SELECT pid, object_id, text, xcoord, ycoord'+\
+			'FROM photo_tag WHERE subject=me() AND text == "Brandon Wu"'
+	params = {'q': query,
+			  'access_token': access_token}
+	return requests.get(baseurl, params).text()
 
 if __name__=='__main__':
 	app.debug = True
