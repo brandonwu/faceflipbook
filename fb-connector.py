@@ -34,7 +34,7 @@ def fql_query(access_token):
 			'FROM photo_tag WHERE subject=me() AND text == "Brandon Wu"'
 	params = {'q': query,
 			  'access_token': access_token}
-	return requests.get(baseurl, params).text()
+	return requests.get(baseurl, params=params).text()
 
 if __name__=='__main__':
 	app.debug = True
