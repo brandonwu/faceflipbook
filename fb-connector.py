@@ -55,7 +55,7 @@ def fql_query(access_token, name):
 	return requests.get(baseurl, params=params).json()[u'data']
 
 def fetch_pic_url(tags, token, s=requests.Session()):
-	for tag in tags:✖
+	for tag in tags:
 		object_id = tag[u'object_id']
 		tag[u'src_big'] = get_pic_src(object_id, token, s)#superFQLjoin
 	return tags
