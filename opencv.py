@@ -18,7 +18,10 @@ def detectObjects(image):
   if faces:
     for f in faces:
       return("[(%d,%d) -> (%d,%d)]" % (f.x, f.y, f.x+f.width, f.y+f.height))
- 
+
+def makeImage(filename):
+  return cvLoadImage(filename)
+
 def main():
   image = cvLoadImage(sys.argv[1]);
   detectObjects(image)
