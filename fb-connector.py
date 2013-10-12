@@ -19,8 +19,8 @@ def get_oauth_token():
 		name, uid = graph_query['name'], graph_query['id']
 		result = fql_query(token, name)
 		pic_urls = fetch_pic_url(result, token)
-		for i in xrange(0, len(pic_urls)):
-		#for i in xrange(0, 10):
+		#for i in xrange(0, len(pic_urls)):
+		for i in xrange(0, 10):
 			pic = pic_urls[i]
 			#pic_name = folder + '/' + hashlib.md5(pic[u'src_big']).hexdigest()
 			#get_face(pic[u'src_big'], pic[u'xcoord']/float(100), pic[u'ycoord']/float(100), 100, pic_name)
