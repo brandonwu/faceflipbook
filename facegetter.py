@@ -36,7 +36,7 @@ def get_face(url, xcenter, ycenter, fn):
         img = img.resize((125,150))
         img.save(filename)
         dist = pyfaces_get_dist(filename)
-        print width_percent,dist
+        #print width_percent,dist
         width_to_dist[width_percent] = dist
     
     min_width, min_dist = 100, 1
