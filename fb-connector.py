@@ -48,7 +48,7 @@ def get_pic_src(object_id, token):
 	baseurl = 'https://graph.facebook.com/fql'
 	params = {'q': query,
 			  'access_token': token}
-	return requests.get(baseurl, params=params).json()['data'][0][u'src_big']
+	return str(requests.get(baseurl, params=params).json())#['data'][0][u'src_big']
 
 if __name__=='__main__':
 	app.debug = True
