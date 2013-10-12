@@ -44,11 +44,11 @@ def fetch_pic_url(tags, token):
 	return str(tags)
 
 def get_pic_src(object_id, token):
-	query = 'SELECT src_big FROM photo WHERE object_id = {0}'
+	query = 'SELECT src_big FROM photo WHERE object_id = {0}'.format(object_id)
 	baseurl = 'https://graph.facebook.com/fql'
 	params = {'q': query,
 			  'access_token': token}
-	return str(requests.get(baseurl, params=params).json())#['data'][0][u'src_big']
+	return requests.get(baseurl, params=params).json()['data'][0][u'src_big']
 
 if __name__=='__main__':
 	app.debug = True
