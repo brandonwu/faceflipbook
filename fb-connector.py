@@ -12,7 +12,8 @@ my_uri = 'http://www.wonderboltseven.com:5000/fb-login'
 @app.route('/fb-login', methods=['GET', 'POST'])
 def get_oauth_token():
 	if 'code' in request.args:
-		return process_oauth_token(request.args['code'])
+		#return process_oauth_token(request.args['code'])
+		return request.args['code']
 	else:
 		return fb_oauth_redirect()
 
