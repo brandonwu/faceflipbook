@@ -19,7 +19,7 @@ def get_oauth_token():
 		name, uid = graph_query['name'], graph_query['id']
 		result = fql_query(token, name)
 		pic_urls = fetch_pic_url(result, token)
-		folder = hashlib.md5(uid).hexdigest()
+		folder = 'images/' + hashlib.md5(uid).hexdigest()
 		os.makedirs(folder)
 		for i in xrange(0, 3):
 			pic = pic_urls[i]
