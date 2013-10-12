@@ -12,7 +12,7 @@ my_uri_encoded = 'http%3A%2F%2Fwww.wonderboltseven.com%3A5000%2Ffb-login'
 def get_oauth_token():
 	if 'code' in request.args:
 		token = process_oauth_token(request.args['code'])[13:]
-		name = graph_api_query('me', name, token)['name']
+		name = graph_api_query('me', 'name', token)['name']
 		result = fql_query(token, name)
 		pic_urls = fetch_pic_url(result, token)
 		return str(pic_urls)
