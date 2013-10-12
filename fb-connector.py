@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 app_id = '674510052574179'
 app_secret = 'aaca04a3b36adde03cd2e15ec031b533'
-my_uri = 'www.wonderboltseven.com'
+my_uri = 'http://www.wonderboltseven.com/fb-login'
 
 
 @app.route('/fb-login', methods=['GET', 'POST'])
@@ -34,4 +34,5 @@ class Facebook():
 		return None
 
 if __name__=='__main__':
+	app.debug = True
 	app.run(host='0.0.0.0')
