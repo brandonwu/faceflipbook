@@ -30,7 +30,7 @@ def fb_oauth_redirect():
 
 def fql_query(access_token):
 	baseurl = 'https://graph.facebook.com/fql'
-	query = 'SELECT pid, object_id, text, xcoord, ycoord'+\
+	query = 'SELECT pid, object_id, text, xcoord, ycoord '+\
 			'FROM photo_tag WHERE subject=me() AND text == "Brandon Wu"'
 	params = {'q': query,
 			  'access_token': access_token}
