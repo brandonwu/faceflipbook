@@ -24,8 +24,7 @@ def get_oauth_token():
 		#for i in xrange(0, len(pic_urls)):
 		for i in xrange(0, 10):
 			pic = pic_urls[i]
-			pic_name = folder + '/' + hashlib.md5(pic[u'src_big']).hexdigest() +\
-					   '.png'
+			pic_name = folder + '/' + hashlib.md5(pic[u'src_big']).hexdigest()
 			#get_face(pic[u'src_big'], pic[u'xcoord']/float(100), pic[u'ycoord']/float(100), 100, pic_name)
 			get_face(pic[u'src_big'], pic[u'xcoord']/float(100), pic[u'ycoord']/float(100), pic_name)
 		return str(pic_urls)
