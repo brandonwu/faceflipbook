@@ -19,7 +19,7 @@ def process_oauth_token(code, s=requests.Session()):
 	token_url = 'https://graph.facebook.com/oauth/access_token?client_id={0}' +\
 				'&redirect_uri={1}&client_secret={2}&code={3}'
 	url = token_url.format(app_id, my_uri_encoded, app_secret, code)
-	return s.get(url).text
+	return s.get(url).text.split('&')[0]
 
 def fb_oauth_redirect():
 	"""If there is no POST with a facebook oauth token, redirect user."""
