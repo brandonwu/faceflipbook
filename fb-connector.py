@@ -12,7 +12,6 @@ my_uri_encoded = 'http%3A%2F%2Fwww.wonderboltseven.com%3A5000%2Ffb-login'
 def get_oauth_token():
 	if 'code' in request.args:
 		return fql_query(process_oauth_token(request.args['code'])[13:])
-		#return process_oauth_token(request.args['code'])[13:]
 	else:
 		return fb_oauth_redirect()
 
@@ -36,7 +35,7 @@ def fql_query(access_token):
 			'FROM photo_tag WHERE subject=me() AND text == "Brandon Wu"'
 	params = {'q': query,
 			  'access_token': access_token}
-	return requests.get(baseurl, params=params).text
+	return len(requests.get(baseurl, params=params).json())
 
 if __name__=='__main__':
 	app.debug = True
