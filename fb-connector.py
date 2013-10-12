@@ -2,6 +2,7 @@
 from flask import Flask, request
 import requests
 import hashlib
+import os
 from facegetter import faceget
 app = Flask(__name__)
 
