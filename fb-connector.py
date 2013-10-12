@@ -2,7 +2,7 @@
 from flask import Flask, request
 import requests
 from urllib import urlencode
-import urllib.request
+import urllib2
 app = Flask(__name__)
 
 app_id = '599387690117256'
@@ -22,7 +22,7 @@ def process_oauth_token(code):
 	token_url = 'https://graph.facebook.com/oauth/access_token?client_id={0}' +\
 				'&redirect_uri={1}&client_secret={2}&code{3}'
 	url = token_url.format(app_id, urlencode(my_uri), app_secret, str(code))
-	return urllib.request.urlopen(url).read()
+	return urllib2.urlopen(url).read()
 
 
 def fb_oauth_redirect():
