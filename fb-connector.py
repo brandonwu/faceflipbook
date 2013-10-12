@@ -3,8 +3,6 @@ from flask import Flask, request
 import requests
 import hashlib
 import os
-import urllib
-import opencv
 from facegetter import faceget, get_face
 app = Flask(__name__)
 
@@ -21,22 +19,13 @@ def get_oauth_token():
 		name, uid = graph_query['name'], graph_query['id']
 		result = fql_query(token, name)
 		pic_urls = fetch_pic_url(result, token)
-		folder = hashlib.md5(uid).hexdigest()
-		#for i in xrange(0, len(pic_urls)):
-		imglist, facelist = [], []
-		for i in xrange(0, 10):
+		for i in xrange(0, len(pic_urls)):
+		#for i in xrange(0, 10):
 			pic = pic_urls[i]
-			filename = folder + '/' + hashlib.md5(pic[u'src_big']).hexdigest() + '.jpg'
-			urllib.retrieve(pic[u'src_big'], filename)
-			imglist.append(filename)
 			#pic_name = folder + '/' + hashlib.md5(pic[u'src_big']).hexdigest()
 			#get_face(pic[u'src_big'], pic[u'xcoord']/float(100), pic[u'ycoord']/float(100), 100, pic_name)
-			#get_face(pic[u'src_big'], pic[u'xcoord']/float(100), pic[u'ycoord']/float(100), 'pic%s' % i)
-		for i in imglist:
-			img = opencv.makeImage(i)
-			facelist.append(opencv.detectObjects(img))
-		#return str(pic_urls)
-		return str(facelist)
+			get_face(pic[u'src_big'], pic[u'xcoord']/float(100), pic[u'ycoord']/float(100), 'pic%s' % i)
+		return str(pic_urls)
 	else:
 		return fb_oauth_redirect()
 
