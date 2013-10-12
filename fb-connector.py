@@ -11,7 +11,8 @@ my_uri_encoded = 'http%3A%2F%2Fwww.wonderboltseven.com%3A5000%2Ffb-login'
 @app.route('/fb-login', methods=['GET', 'POST'])
 def get_oauth_token():
 	if 'code' in request.args:
-		return fql_query(process_oauth_token(request.args['code'])[13:])
+		#return fql_query(process_oauth_token(request.args['code'])[13:])
+		return process_oauth_token(request.args['code'])[13:]
 	else:
 		return fb_oauth_redirect()
 
