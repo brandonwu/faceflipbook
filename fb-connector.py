@@ -19,7 +19,7 @@ def get_oauth_token():
 def process_oauth_token(code, s=requests.Session()):
 	token_url = 'https://graph.facebook.com/oauth/access_token?client_id={0}' +\
 				'&redirect_uri={1}&client_secret={2}&code{3}'
-	url = token_url.format(app_id, urlencode(my_uri), app_secret, code)
+	url = token_url.format(app_id, urlencode(my_uri), app_secret, str(code))
 	return s.get(url).text
 
 
