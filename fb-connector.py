@@ -19,16 +19,12 @@ def get_oauth_token():
 		name, uid = graph_query['name'], graph_query['id']
 		result = fql_query(token, name)
 		pic_urls = fetch_pic_url(result, token)
-		folder = 'images/' + hashlib.md5(uid).hexdigest()
-		#folder = ''
-		os.makedirs(folder)
 		#for i in xrange(0, len(pic_urls)):
 		for i in xrange(0, 10):
 			pic = pic_urls[i]
-			pic_name = ''
 			#pic_name = folder + '/' + hashlib.md5(pic[u'src_big']).hexdigest()
 			#get_face(pic[u'src_big'], pic[u'xcoord']/float(100), pic[u'ycoord']/float(100), 100, pic_name)
-			get_face(pic[u'src_big'], pic[u'xcoord']/float(100), pic[u'ycoord']/float(100), pic_name)
+			get_face(pic[u'src_big'], pic[u'xcoord']/float(100), pic[u'ycoord']/float(100), 'pic%s' % i)
 		return str(pic_urls)
 	else:
 		return fb_oauth_redirect()
