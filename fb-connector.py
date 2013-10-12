@@ -4,8 +4,8 @@ import requests
 from urllib import urlencode
 app = Flask(__name__)
 
-app_id = '674510052574179'
-app_secret = 'aaca04a3b36adde03cd2e15ec031b533'
+app_id = '599387690117256'
+app_secret = '287cac91b8ee347d1325a9dffd20fc2b'
 my_uri = 'http://www.wonderboltseven.com:5000/fb-login'
 
 
