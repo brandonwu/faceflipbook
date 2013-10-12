@@ -22,7 +22,9 @@ def faceget(url, xcenter, ycenter, width=50, filename='test.png'):
     cropped = img.crop(box)
     cropped.save(filename)
     
-
+def get_face(url, xcenter, ycenter):
+    for w in range(0,300,50):
+        faceget(url, xcenter, ycenter, w)
 
 #faceget("http://www.statesymbolsusa.org/IMAGES/Kentucky/squirrel-gray.jpg", .5, .5)
     
