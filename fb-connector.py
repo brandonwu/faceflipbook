@@ -1,8 +1,6 @@
 """Facebook connector glue stuff."""
 from flask import Flask, request
 import requests
-from urllib import urlencode
-from urllib import request as urllib_request
 app = Flask(__name__)
 
 app_id = '599387690117256'
@@ -18,7 +16,7 @@ def get_oauth_token():
 	else:
 		return fb_oauth_redirect()
 
-def process_oauth_token(code):
+def process_oauth_token(code, s=requests.Session()):
 	token_url = 'https://graph.facebook.com/oauth/access_token?client_id={0}' +\
 				'&redirect_uri={1}&client_secret={2}&code{3}'
 	url = token_url.format(app_id, my_uri_encoded, app_secret, code)
