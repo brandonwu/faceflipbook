@@ -45,8 +45,8 @@ def get_face(url, xcenter, ycenter, fn):
             min_width = width
             min_dist = dist
     
-    img = Image.open(fn+str(min_width)+'_'+str(round(min_dist,3))+'.png')
-    img.save('max/'+fn+'.png')
+    img = Image.open(fn+str(min_width)+'.png')
+    img.save('max/'+fn+'_'+str(round(min_dist,3))+'.png')
         
 
 #get_face("http://www.uni-regensburg.de/Fakultaeten/phil_Fak_II/Psychologie/Psy_II/beautycheck/english/durchschnittsgesichter/m(01-32)_gr.jpg", .5, .5)
