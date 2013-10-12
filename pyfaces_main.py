@@ -2,7 +2,7 @@
 from pyfaces import pyfaces
 import sys,time
 
-def pyfaces_get_dist():
+def pyfaces_get_dist2():
     try:
         start = time.time()
         argsnum=len(sys.argv)
@@ -22,4 +22,9 @@ def pyfaces_get_dist():
         print detail.args
         print "usage:python pyfacesdemo imgname dirname numofeigenfaces threshold "
     
+    return pyf.mindist
+    
+def pyfaces_get_dist(imgname):
+    pyf=pyfaces.PyFaces(imgname,'gallery',6,3)
+    print 'DIST :',pyf.mindist
     return pyf.mindist
