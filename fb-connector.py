@@ -11,7 +11,10 @@ my_uri_encoded = 'http%3A%2F%2Fwww.wonderboltseven.com%3A5000%2Ffb-login'
 @app.route('/fb-login', methods=['GET', 'POST'])
 def get_oauth_token():
 	if 'code' in request.args:
-		return fql_query(process_oauth_token(request.args['code'])[13:])
+		token = process_oauth_token(request.args['code'])[13:]
+		result = fql_query(token)
+		pic_urls = fetch_pic_url(result, token)
+		return str(pic_urls)
 	else:
 		return fb_oauth_redirect()
 
@@ -34,14 +37,13 @@ def fql_query(access_token):
 	query = 'SELECT pid, object_id, text, xcoord, ycoord '+\
 			'FROM photo_tag WHERE subject=me() AND text == "Brandon Wu"'
 	params = {'q': query, 'access_token': access_token}
-	return fetch_pic_url(requests.get(baseurl, params=params).json()[u'data'],\
-						 access_token)
+	return requests.get(baseurl, params=params).json()[u'data']
 
 def fetch_pic_url(tags, token):
 	for tag in tags:
 		object_id = tag[u'object_id']
 		tag[u'src_big'] = get_pic_src(object_id, token)#superFQLjoin
-	return str(tags)
+	return tags
 
 def get_pic_src(object_id, token):
 	query = 'SELECT src_big FROM photo WHERE object_id = {0}'.format(object_id)
