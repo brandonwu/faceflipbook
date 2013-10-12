@@ -1,7 +1,7 @@
 """Facebook connector glue stuff."""
 from flask import Flask, request
 import requests
-import facegetter
+from facegetter import faceget
 app = Flask(__name__)
 
 app_id = '599387690117256'
