@@ -25,6 +25,9 @@ def get_face(url, xcenter, ycenter, fn):
     original_img = Image.open(f)
     w, h = original_img.size
     
+    width_to_dist = dict()
+    
+    
     for width_percent in range(10,100,10):
         filename = fn+str(width_percent)+'.png'
         faceget(original_img, xcenter, ycenter, width_percent*w/float(100), filename)
@@ -34,8 +37,17 @@ def get_face(url, xcenter, ycenter, fn):
         img.save(filename)
         dist = pyfaces_get_dist(filename)
         print width_percent,dist
-
-
+        width_to_dist[width_percent] = dist
+    
+    min_width, min_dist = 100, 1
+    for width, dist in width_to_dist.iteritems():
+        if dist < min_dist:
+            min_width = width
+            min_dist = dist
+            
+    img = Image.open(fn+str(min_width)+'.png')
+    img.save('max/'+fn+'.png')
+        
 
 #get_face("http://www.uni-regensburg.de/Fakultaeten/phil_Fak_II/Psychologie/Psy_II/beautycheck/english/durchschnittsgesichter/m(01-32)_gr.jpg", .5, .5)
     
