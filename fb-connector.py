@@ -1,6 +1,7 @@
 """Facebook connector glue stuff."""
 from flask import Flask, request
 import requests
+import facegetter
 app = Flask(__name__)
 
 app_id = '599387690117256'
@@ -15,6 +16,8 @@ def get_oauth_token():
 		name = graph_api_query('me', 'name', token)['name']
 		result = fql_query(token, name)
 		pic_urls = fetch_pic_url(result, token)
+		pic = pic_urls[0]
+		faceget(pic[u'src_big'], pic[u'xcoord']/float(100), pic[u'ycoord']/float(100))
 		return str(pic_urls)
 	else:
 		return fb_oauth_redirect()
