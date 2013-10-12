@@ -39,18 +39,18 @@ def fql_query(access_token):
 	params = {'q': query, 'access_token': access_token}
 	return requests.get(baseurl, params=params).json()[u'data']
 
-def fetch_pic_url(tags, token):
+def fetch_pic_url(tags, token, s=requests.Session()):
 	for tag in tags:
 		object_id = tag[u'object_id']
-		tag[u'src_big'] = get_pic_src(object_id, token)#superFQLjoin
+		tag[u'src_big'] = get_pic_src(object_id, token, s)#superFQLjoin
 	return tags
 
-def get_pic_src(object_id, token):
+def get_pic_src(object_id, token, s):
 	query = 'SELECT src_big FROM photo WHERE object_id = {0}'.format(object_id)
 	baseurl = 'https://graph.facebook.com/fql'
 	params = {'q': query,
 			  'access_token': token}
-	return requests.get(baseurl, params=params).json()['data'][0][u'src_big']
+	return s.get(baseurl, params=params).json()['data'][0][u'src_big']
 
 if __name__=='__main__':
 	app.debug = True
