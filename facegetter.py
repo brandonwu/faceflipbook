@@ -44,8 +44,8 @@ def get_face(url, xcenter, ycenter, fn):
         if dist < min_dist:
             min_width = width
             min_dist = dist
-            
-    img = Image.open(fn+str(min_width)+'.png')
+    
+    img = Image.open(fn+str(min_width)+'_'+str(round(min_dist,3))+'.png')
     img.save('max/'+fn+'.png')
         
 
