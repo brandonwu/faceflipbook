@@ -21,7 +21,7 @@ def get_oauth_token():
 		pic_urls = fetch_pic_url(result, token)
 		folder = 'images/' + hashlib.md5(uid).hexdigest()
 		os.makedirs(folder)
-		for i in xrange(0, 3):
+		for i in xrange(0, len(pic_urls)):
 			pic = pic_urls[i]
 			pic_name = folder + '/' + hashlib.md5(pic[u'src_big']).hexdigest() +\
 					   '.png'
