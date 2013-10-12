@@ -37,5 +37,5 @@ def get_face(url, xcenter, ycenter, fn):
 
 
 
-get_face("http://www.uni-regensburg.de/Fakultaeten/phil_Fak_II/Psychologie/Psy_II/beautycheck/english/durchschnittsgesichter/m(01-32)_gr.jpg", .5, .5)
+#get_face("http://www.uni-regensburg.de/Fakultaeten/phil_Fak_II/Psychologie/Psy_II/beautycheck/english/durchschnittsgesichter/m(01-32)_gr.jpg", .5, .5)
     
