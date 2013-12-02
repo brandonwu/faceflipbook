@@ -6,3 +6,6 @@ Created by Brandon Wu, Alex Yang, Adi Jung, Bryan Tran at the Facebook Norcal Re
 Collects your Facebook photos, crops your face, and creates a timelapse of your face over time.
 
 Does stuff
+
+**Doesn't work due to choice of face detection algorithm**
+----------------
